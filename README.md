@@ -63,6 +63,12 @@ System and user-defined variables also get injected as environment variables for
 
 ### Variable Example
 
+Azure Pipelines supports three different ways to reference variables: macro, template expression, and runtime expression. Each syntax can be used for a different purpose and has some limitations.
+
+In a pipeline, template expression variables (${{ variables.var }}) get processed at compile time, before runtime starts. Macro syntax variables ($(var)) get processed during runtime before a task runs. Runtime expressions ($[variables.var]) also get processed during runtime but were designed for use with conditions and expressions. When you use a runtime expression, it must take up the entire right side of a definition.
+
+In this example, you can see that the template expression still has the initial value of the variable after the variable is updated. The value of the macro syntax variable updates. The template expression value does not change because all template expression variables get processed at compile time before tasks run. In contrast, macro syntax variables are evaluated before each task runs.
+
 ```YAML
 variables:
 - name: one
